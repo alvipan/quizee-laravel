@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -42,4 +43,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function answering(): HasMany {
+        return $this->hasMany(Answered::class);
+    }
+
+    public function library(): HasMany {
+        return $this->hasMany(Library::class);
+    }
+
+    public function rewarded() {
+        $reward = 0;
+        $answering = $this->answering->where('correct', 1);
+        foreach ($answering as $row) {
+            $reward = Question::find($row['question_id'])->reward;
+        }
+        return $reward;
+    }
 }
