@@ -13,7 +13,7 @@ class MaterialController extends Controller
         $data = [
             'page' => 'materials',
             'title' => $id ? 'Edit material' : 'Create new material',
-            'material' => $id ? Material::find($id) : json_decode('{}'),
+            'material' => $id ? Material::find($id) : [],
         ];
         return view('materials.editor', $data);
     }
@@ -60,6 +60,6 @@ class MaterialController extends Controller
     }
 
     public function questions($id) {
-        return Question::where('mid', $id)->get();
+        return Material::find($id)->questions;
     }
 }

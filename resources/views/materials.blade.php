@@ -28,10 +28,10 @@
 			<tr>
 				<td>{{$material->title}}</td>
 				<td class="text-capitalize">{{$material->category}}</td>
-				<td>{{count(App\Models\Question::where('mid', $material->id)->get())}}</td>
+				<td>{{count(App\Models\Question::where('material_id', $material->id)->get())}}</td>
 				<td>Rp {{$material->price}}</td>
-				<td>{{App\Models\Question::where('mid', $material->id)->sum('reward')}} points</td>
-				<td>{{App\Models\User::find($material->uid)->name}}</td>
+				<td>{{App\Models\Question::where('material_id', $material->id)->sum('reward')}} points</td>
+				<td>{{App\Models\User::find($material->user_id)->name}}</td>
 				<td><a href="/materials/{{$material->id}}/edit">Edit</a></td>
 			</tr>
 			@empty

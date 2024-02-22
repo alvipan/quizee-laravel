@@ -25,18 +25,22 @@ let material = {{ Js::from($material) }};
 let editor = new Quill(`#editor`, {
   theme: `snow`
 });
+let modal_question;
 
 editor.on('text-change', function() {
   $(`#content`).val(editor.root.innerHTML);
 });
 
 if (material.id) {
-	let modal_question = new bootstrap.Modal(document.getElementById('modal-question-form'), {keyboard: false});
 	$('#title').val(material.title);
 	$('#category').val(material.category);
 	$('#price').val(material.price);
 	
 	editor.root.innerHTML = material.content;
+	modal_question = new bootstrap.Modal(
+		document.getElementById('modal-question-form'),
+		{keyboard: false}
+	);
 
 	$.get(`/materials/${material.id}/questions`, function(res) {
 		material.questions = res;
@@ -52,7 +56,9 @@ function updateQuestionList() {
 }
 
 $(`#btn-add-question`).click(function() {
-	modal_question.show();
+	if (modal_question) {
+		modal_question.show();
+	}
 });
 
 $(`#btn-publish`).click(function() {

@@ -70,11 +70,4 @@ class MaterialController extends Controller
             'data' => $questions,
         ];
     }
-
-    public function content($id) {
-        $collected = Auth::user()->library->firstWhere('material_id', $id);
-        return view('api.material', [
-            'material' => $collected ? Material::find($id) : null
-        ]);
-    }
 }

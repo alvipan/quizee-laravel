@@ -14,7 +14,7 @@
 				<form action="/login" method="post">
 					@csrf
 
-					<label for="email" class="form-label">Email</label>
+					<label for="email" class="form-label">Email:</label>
 					<input name="email" id="email" type="email" class="form-control mb-3"/>
 
 					<label for="password" class="form-label">Password</label>
